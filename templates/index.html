@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do App</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    li.done { text-decoration: line-through; color: gray; }
+    form { display: inline; margin-left: 10px; }
+    input[type="text"] { padding: 5px; }
+    button { padding: 5px 10px; }
+  </style>
+</head>
+<body>
+  <h1>To-Do List</h1>
+
+  <ul>
+    {% for todo in todos %}
+      <li class="{{ 'done' if todo.done else '' }}">
+        {{ todo.task }}
+        <form action="/toggle/{{ todo.id }}" method="post">
+          <button type="submit">
+            {% if todo.done %}Undo{% else %}Mark as done{% endif %}
+          </button>
+        </form>
+        <form action="/delete/{{ todo.id }}" method="post">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    {% else %}
+      <li>No tasks yet.</li>
+    {% endfor %}
+  </ul>
+
+  <form action="/" method="post">
+    <input type="text" name="task" placeholder="New task" required>
+    <button type="submit">Add Task</button>
+  </form>
+</body>
+</html>
