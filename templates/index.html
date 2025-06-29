@@ -637,16 +637,6 @@
               <span class="filter-count" id="${assignee}-count">${count}</span>
             `;
             assigneeFiltersContainer.appendChild(label);
-            
-            // Add event listener to the new checkbox
-            const newCheckbox = label.querySelector('input[type="checkbox"]');
-            if (newCheckbox) {
-              newCheckbox.addEventListener('change', () => {
-                console.log('New filter changed:', newCheckbox.name, newCheckbox.value, newCheckbox.checked);
-                applyFilters();
-                updateCounts();
-              });
-            }
           }
           
           // Update count for existing assignee
@@ -668,12 +658,18 @@
         const filters = getSelectedFilters();
         let visibleCount = 0;
 
+        console.log('Applying filters:', filters);
+
         // Find the "No tasks yet" message
-        const noTasksYetElement = document.querySelector('.todo-item:has-text("No tasks yet")');
+        const noTasksYetElement = Array.from(document.querySelectorAll('.todo-item')).find(
+          el => el.textContent && el.textContent.includes('No tasks yet')
+        );
         // Find all real todo items (exclude the empty state message)
         const realTodoItems = Array.from(document.querySelectorAll('.todo-item')).filter(
           el => !el.textContent.includes('No tasks yet')
         );
+
+        console.log('Real todo items found:', realTodoItems.length);
 
         // If there are no real todo items, show the empty state and hide all others
         if (realTodoItems.length === 0) {
@@ -694,16 +690,23 @@
           const status = element.dataset.status;
           const assignee = element.dataset.assignee || 'unassigned';
           
+          console.log('Checking element:', element.textContent.trim(), 'status:', status, 'assignee:', assignee);
+          
           // Check if status matches any selected status filter
           const statusMatch = filters.status.length === 0 || filters.status.includes(status);
           
           // Check if assignee matches any selected assignee filter
+          // For assignee filtering, if any assignee filters are selected, only show tasks that match those assignees
           const assigneeMatch = filters.assignee.length === 0 || filters.assignee.includes(assignee);
           
           const isVisible = statusMatch && assigneeMatch;
+          console.log('Element visibility:', isVisible, 'statusMatch:', statusMatch, 'assigneeMatch:', assigneeMatch, 'selected assignees:', filters.assignee);
+          
           element.style.display = isVisible ? '' : 'none';
           if (isVisible) visibleCount++;
         });
+
+        console.log('Visible count:', visibleCount);
 
         // Show no results message only if there are items but none match filters
         if (noResults) noResults.style.display = visibleCount === 0 ? '' : 'none';
@@ -711,13 +714,22 @@
 
       // Add change event listeners to all filters
       function setupFilterEventListeners() {
-        Object.values(allFilters).forEach(filterGroup => {
-          filterGroup.forEach(filter => {
-            filter.addEventListener('change', () => {
-              console.log('Filter changed:', filter.name, filter.value, filter.checked);
-              applyFilters();
-              updateCounts();
-            });
+        // Use event delegation for dynamically created filters
+        document.addEventListener('change', (event) => {
+          if (event.target.matches('input[name="status"], input[name="assignee"]')) {
+            console.log('Filter changed:', event.target.name, event.target.value, event.target.checked);
+            console.log('Current filters:', getSelectedFilters());
+            applyFilters();
+            updateCounts();
+          }
+        });
+        
+        // Also add direct event listeners to existing checkboxes
+        document.querySelectorAll('input[name="status"], input[name="assignee"]').forEach(checkbox => {
+          checkbox.addEventListener('change', (event) => {
+            console.log('Direct filter change:', event.target.name, event.target.value, event.target.checked);
+            applyFilters();
+            updateCounts();
           });
         });
       }
