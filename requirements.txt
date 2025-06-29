@@ -1,2 +1,9 @@
-flask
-requests
+Flask==3.0.2
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==3.1.0
+SQLAlchemy==1.4.49
+requests==2.26.0
+spacy==3.2.0
+openai==1.12.0
+python-dotenv==1.0.1
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.2.0/en_core_web_sm-3.2.0-py3-none-any.whl

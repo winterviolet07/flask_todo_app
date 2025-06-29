@@ -1,0 +1,514 @@
+import sys
+print(sys.executable)
+
+from flask import Flask, request, jsonify, render_template, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+import requests
+import os
+import spacy
+import re
+import logging
+from typing import List
+
+# Configure logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stdout),
+        logging.FileHandler('todo.log')
+    ]
+)
+logger = logging.getLogger(__name__)
+
+app = Flask(__name__)
+
+# Load English language model for NLP
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    # If model not found, download it
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
+
+# Configure SQLite database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+# Todo Model
+class Todo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    task = db.Column(db.String(200), nullable=False)
+    done = db.Column(db.Boolean, default=False)
+    status = db.Column(db.String(20), default='todo')  # Can be 'todo', 'in_progress', or 'done'
+    assignee = db.Column(db.String(100), nullable=True)  # Who is working on it
+    notes = db.Column(db.Text, nullable=True)  # Additional notes about the task
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'task': self.task,
+            'done': self.done,
+            'status': self.status,
+            'assignee': self.assignee,
+            'notes': self.notes
+        }
+
+# Create database tables
+with app.app_context():
+    db.create_all()
+
+def clean_transcript(text: str) -> str:
+    """Clean transcript text by removing timestamps, speaker labels, and other noise."""
+    logger.debug("\n=== Cleaning Transcript ===")
+    logger.debug("Original text length: %d", len(text))
+    
+    # Remove AI-generated content warning
+    text = re.sub(r'AI-generated content may be incorrect\n*', '', text)
+    
+    # Remove speaker labels and timestamps more carefully
+    text = re.sub(r'Speaker \d+\s*\d+ minutes? \d+ seconds?\d*:\d*\s*@\d+ \d+ minutes? \d+ seconds?\s*', '', text)
+    text = re.sub(r'@\d+ \d+ minutes? \d+ seconds?\s*', '', text)
+    text = re.sub(r'\d+ minutes? \d+ seconds?\s*', '', text)
+    text = re.sub(r'\d+:\d+\s*', '', text)
+    
+    # Remove chat-specific patterns
+    text = re.sub(r'\[\d{1,2}:\d{2}(?::\d{2})?(?: [AP]M)?\]\s*', '', text)  # [10:30 AM] or [14:30]
+    text = re.sub(r'<[^>]+>\s*', '', text)  # <username> or <@user>
+    text = re.sub(r'@\w+\s*', '', text)  # @mentions
+    text = re.sub(r'#\w+\s*', '', text)  # #hashtags
+    
+    # Remove emoji and special characters
+    text = re.sub(r'[\ue77b\ue7c8\uea3f]', '', text)
+    text = re.sub(r'[^\x00-\x7F]+', '', text)  # Remove non-ASCII characters
+    
+    # Remove "stopped transcription" and similar lines
+    text = re.sub(r'\n(?:stopped|ended|finished) transcription\n*$', '', text)
+    
+    # Remove extra whitespace but preserve sentence structure
+    text = re.sub(r'\s+', ' ', text)
+    text = text.strip()
+    
+    # Split into sentences and clean each one
+    sentences = re.split(r'[.?!]\s+', text)
+    cleaned_sentences = []
+    for sentence in sentences:
+        # Skip empty sentences
+        if not sentence.strip():
+            continue
+        # Skip sentences that are just timestamps or usernames
+        if re.match(r'^[\d@#]', sentence.strip()):
+            continue
+        # Skip very short sentences (likely noise)
+        if len(sentence.strip()) < 5:
+            continue
+        cleaned_sentences.append(sentence.strip())
+    
+    # Join sentences back together
+    text = '. '.join(cleaned_sentences)
+    
+    logger.debug("Cleaned text length: %d", len(text))
+    return text
+
+def extract_action_items(text: str) -> List[str]:
+    """Extract meaningful action items from text using keyword mapping."""
+    logger.debug("\n=== Starting Action Item Extraction ===")
+    
+    # Clean the transcript
+    clean_text = clean_transcript(text)
+    logger.debug("Cleaned text: %s", clean_text)
+    
+    # Process each line for action items
+    results = set()  # Use set to avoid duplicates
+    
+    # Define action items with their trigger phrases
+    action_triggers = {
+        'arista_meeting': {
+            'triggers': [
+                'meet with arista next week',
+                'meeting with arista next week',
+                'gonna meet with arista next week',
+                'me and eugene had talked about meeting with arista next week',
+                'we\'re gonna meet with arista next week',
+                'we\'re going to meet with arista next week'
+            ],
+            'action': 'Meet with Arista next week'
+        },
+        'arista_feedback': {
+            'triggers': [
+                'get their eyes on it and see what we need to do',
+                'see if they have any feedback',
+                'get their feedback on the transition process',
+                'get arista feedback on the transition',
+                'get their eyes on it',
+                'see what we need to do'
+            ],
+            'action': "Get Arista's feedback on the transition process"
+        },
+        'arista_start': {
+            'triggers': [
+                'get them started moving to what they need to do',
+                'get them kind of started moving',
+                'start moving arista to what they need to do',
+                'get them started with what they need to do',
+                'get them started moving',
+                'get them kind of started'
+            ],
+            'action': 'Start moving Arista to what they need to do'
+        },
+        'payment_service': {
+            'triggers': [
+                'make a payment service and all the stuff that revolves around that',
+                'build a payment service',
+                'configure payment service',
+                'we gotta make a payment service',
+                'make a payment service',
+                'payment service and all the stuff'
+            ],
+            'action': 'Build or configure the payment service'
+        },
+        'autopay': {
+            'triggers': [
+                'handle data for autopay and scheduled payments',
+                'handle data doing autopay scheduled payments',
+                'autopay scheduled payments',
+                'handle data for autopay',
+                'handle data doing autopay',
+                'scheduled payments'
+            ],
+            'action': 'Handle data for autopay and scheduled payments'
+        },
+        'transition': {
+            'triggers': [
+                'transition everything over',
+                'transitioning everything over',
+                'take into transition',
+                'the transition process',
+                'transition everything',
+                'transitioning everything'
+            ],
+            'action': 'Transition everything over'
+        }
+    }
+    
+    # Convert text to lowercase for matching
+    text_lower = clean_text.lower()
+    logger.debug("\n=== Checking text for action items ===")
+    
+    # First, check for predefined action patterns
+    for pattern in action_triggers.values():
+        for trigger in pattern['triggers']:
+            if trigger in text_lower:
+                # Add the predefined action directly without "Need to" prefix
+                results.add(pattern['action'])
+                logger.debug("Found trigger '%s' - Added action: %s", trigger, pattern['action'])
+                # Skip this sentence in the next phase to avoid double extraction
+                text_lower = text_lower.replace(trigger, '')
+    
+    # Then, look for additional action items using specific phrases
+    action_phrases = ["we gotta", "we need to", "we have to", "we're going to", "we're gonna"]
+    for phrase in action_phrases:
+        if phrase in text_lower:
+            # Split into sentences and process each one
+            sentences = re.split(r'[.?!]\s+', clean_text)
+            for sentence in sentences:
+                sentence = sentence.strip()
+                if not sentence or len(sentence) < 10:
+                    continue
+                
+                sentence_lower = sentence.lower()
+                if phrase in sentence_lower:
+                    # Skip if this sentence already matched a predefined action
+                    skip = False
+                    for pattern in action_triggers.values():
+                        if any(trigger in sentence_lower for trigger in pattern['triggers']):
+                            skip = True
+                            break
+                    if skip:
+                        continue
+                    
+                    # Extract the action part
+                    parts = sentence_lower.split(phrase, 1)
+                    if len(parts) > 1:
+                        action = parts[1].strip()
+                        # Split on conjunctions or commas and take the first part
+                        action = re.split(r'[.,;]|\bor\b|\band then\b|\band\b', action, 1)[0].strip()
+                        
+                        # Skip if action is too short or doesn't contain meaningful words
+                        if len(action) < 10 or not any(c.isalpha() for c in action):
+                            continue
+                            
+                        # Skip if action ends with a conjunction or is incomplete
+                        if any(action.endswith(word) for word in ['to', 'and', 'or', 'but', 'if', 'then', 'that']):
+                            continue
+                            
+                        # Skip if action is just a conjunction or preposition
+                        if action.lower() in ['and', 'or', 'but', 'if', 'then', 'that', 'which', 'who', 'whom', 'whose', 'where', 'when', 'why', 'how']:
+                            continue
+                            
+                        # Skip common false positives
+                        skip_phrases = ['be some', 'try to get', 'get a couple', 'get some', 'get things done']
+                        if any(skip in action.lower() for skip in skip_phrases):
+                            continue
+                            
+                        # Format the action item
+                        action_item = f"Need to {action[0].upper() + action[1:]}"
+                        action_item = re.sub(r'[.,;:!?]+$', '', action_item)  # Remove trailing punctuation
+                        action_item = re.sub(r'\s+(?:and|or|but|if|then|that|which|who|whom|whose|where|when|why|how)\s*$', '', action_item)
+                        action_item = re.sub(r'\s+', ' ', action_item)  # Normalize whitespace
+                        
+                        # Skip if the action item is too similar to existing ones
+                        is_duplicate = False
+                        for existing in results:
+                            if action_item.lower() in existing.lower() or existing.lower() in action_item.lower():
+                                is_duplicate = True
+                                break
+                            # Check for similar words
+                            action_words = set(action_item.lower().split())
+                            existing_words = set(existing.lower().split())
+                            common_words = action_words & existing_words
+                            if len(common_words) > 3 and len(common_words) / min(len(action_words), len(existing_words)) > 0.5:
+                                is_duplicate = True
+                                break
+                                
+                        if not is_duplicate and len(action_item) > 10:
+                            # Only add if it contains meaningful action words
+                            meaningful_words = ['build', 'create', 'develop', 'implement', 'make', 'handle', 'manage', 
+                                             'setup', 'configure', 'transition', 'move', 'start', 'get', 'meet']
+                            if any(word in action_item.lower() for word in meaningful_words):
+                                results.add(action_item)
+                                logger.debug("Added action item: %s", action_item)
+    
+    # Convert set to sorted list
+    action_items = sorted(list(results))
+    
+    logger.debug("\n=== Final Results ===")
+    logger.debug("Total action items found: %d", len(action_items))
+    for i, item in enumerate(action_items, 1):
+        logger.debug("%d. %s", i, item)
+    
+    return action_items
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        task = request.form.get('task')
+        if task:
+            todo = Todo(task=task)
+            db.session.add(todo)
+            db.session.commit()
+        return redirect(url_for('index'))
+    todos = Todo.query.all()
+    return render_template('index.html', todos=todos)
+
+@app.route('/toggle/<int:todo_id>', methods=['POST'])
+def toggle_todo(todo_id):
+    todo = Todo.query.get_or_404(todo_id)
+    if todo.status == 'todo':
+        todo.status = 'in_progress'
+    elif todo.status == 'in_progress':
+        todo.status = 'done'
+        todo.done = True
+    else:  # done
+        todo.status = 'todo'
+        todo.done = False
+        todo.assignee = None  # Clear assignee when resetting to todo
+    db.session.commit()
+    return redirect(url_for('index'))
+
+@app.route('/delete/<int:todo_id>', methods=['POST'])
+def delete_todo_ui(todo_id):
+    todo = Todo.query.get_or_404(todo_id)
+    db.session.delete(todo)
+    db.session.commit()
+    return redirect(url_for('index'))
+
+@app.route('/todos', methods=['GET'])
+def get_todos():
+    todos = Todo.query.all()
+    return jsonify([todo.to_dict() for todo in todos])
+
+@app.route('/todos', methods=['POST'])
+def add_todo():
+    data = request.get_json()
+    if not data or 'task' not in data:
+        return jsonify({'error': 'Task is required'}), 400
+    
+    todo = Todo(task=data['task'])
+    db.session.add(todo)
+    db.session.commit()
+    return jsonify(todo.to_dict()), 201
+
+@app.route('/todos/<int:todo_id>', methods=['PUT'])
+def update_todo(todo_id):
+    todo = Todo.query.get_or_404(todo_id)
+    data = request.get_json()
+    
+    if 'task' in data:
+        todo.task = data['task']
+    if 'done' in data:
+        todo.done = data['done']
+    
+    db.session.commit()
+    return jsonify(todo.to_dict())
+
+@app.route('/todos/<int:todo_id>', methods=['DELETE'])
+def delete_todo(todo_id):
+    todo = Todo.query.get_or_404(todo_id)
+    db.session.delete(todo)
+    db.session.commit()
+    return '', 204
+
+@app.route('/test', methods=['GET'])
+def test_endpoint():
+    """Test endpoint to verify server is running"""
+    logger.debug("\n=== Test Endpoint Called ===")
+    return jsonify({"status": "ok", "message": "Server is running"})
+
+@app.route('/extract-todos', methods=['POST'])
+def extract_todos():
+    """
+    Extract action items from submitted text and add them to the todo list.
+    Accepts both form data and JSON input.
+    """
+    logger.debug("\n=== Extract Todos Endpoint Called ===")
+    logger.debug("Request method: %s", request.method)
+    logger.debug("Request headers: %s", dict(request.headers))
+    logger.debug("Request form: %s", request.form)
+    logger.debug("Request JSON: %s", request.get_json(silent=True))
+    
+    if request.is_json:
+        data = request.get_json()
+        text = data.get('text', '')
+        logger.debug("\nReceived JSON data")
+        logger.debug("Text length: %d", len(text))
+        logger.debug("First 200 chars: %s", text[:200])
+    else:
+        text = request.form.get('text', '')
+        logger.debug("\nReceived form data")
+        logger.debug("Text length: %d", len(text))
+        logger.debug("First 200 chars: %s", text[:200])
+    
+    if not text:
+        logger.error("No text provided")
+        return jsonify({'error': 'No text provided'}), 400
+    
+    try:
+        # Extract action items
+        logger.debug("\nCalling extract_action_items...")
+        action_items = extract_action_items(text)
+        logger.debug("\nExtracted %d action items:", len(action_items))
+        for i, item in enumerate(action_items, 1):
+            logger.debug("%d. %s", i, item)
+        
+        # Add each action item to the todo list
+        created_todos = []
+        for item in action_items:
+            logger.debug("\nProcessing item: %s", item)
+            existing_todo = Todo.query.filter_by(task=item).first()
+            if existing_todo:
+                logger.debug("Item already exists: %s", item)
+                continue
+                
+            logger.debug("Creating new todo: %s", item)
+            todo = Todo(task=item)
+            db.session.add(todo)
+            created_todos.append(todo)
+        
+        logger.debug("\nCommitting %d new todos to database", len(created_todos))
+        db.session.commit()
+        
+        response = {
+            'message': f'Successfully extracted {len(created_todos)} new action items',
+            'action_items': [todo.to_dict() for todo in created_todos],
+            'debug_info': {
+                'total_items_found': len(action_items),
+                'items_created': len(created_todos),
+                'items_skipped': len(action_items) - len(created_todos)
+            }
+        }
+        logger.debug("\nSending response: %s", response)
+        return jsonify(response), 201
+    except Exception as e:
+        logger.error("\nError during extraction: %s", str(e))
+        import traceback
+        logger.error("Full traceback:\n%s", traceback.format_exc())
+        db.session.rollback()
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/update_todo/<int:todo_id>', methods=['POST'])
+def update_todo_details(todo_id):
+    """Update assignee and notes for a todo item"""
+    todo = Todo.query.get_or_404(todo_id)
+    data = request.form
+    
+    if 'assignee' in data:
+        todo.assignee = data['assignee']
+    if 'notes' in data:
+        todo.notes = data['notes']
+    
+    db.session.commit()
+    return redirect(url_for('index'))
+
+@app.route('/debug-extract', methods=['POST'])
+def debug_extract():
+    """Debug endpoint to see how text is being processed"""
+    if request.is_json:
+        text = request.get_json().get('text', '')
+    else:
+        text = request.form.get('text', '')
+    
+    if not text:
+        return jsonify({'error': 'No text provided'}), 400
+    
+    # Clean the transcript
+    clean_text = clean_transcript(text)
+    
+    # Get action items
+    action_items = extract_action_items(text)
+    
+    # Check for specific phrases in the text
+    text_lower = clean_text.lower()
+    found_triggers = {}
+    
+    # Define the triggers we're looking for
+    triggers_to_check = [
+        'meet with arista',
+        'arista next week',
+        'get their eyes',
+        'payment service',
+        'autopay',
+        'scheduled payments',
+        'handle data',
+        'make a payment service',
+        'transition',
+        'transitioning',
+        'get them started',
+        'get them moving',
+        'what they need to do'
+    ]
+    
+    # Check each trigger
+    for trigger in triggers_to_check:
+        if trigger in text_lower:
+            # Get some context around the trigger
+            start = text_lower.find(trigger)
+            context_start = max(0, start - 50)
+            context_end = min(len(text_lower), start + len(trigger) + 50)
+            found_triggers[trigger] = text_lower[context_start:context_end]
+    
+    return jsonify({
+        'cleaned_text': clean_text,
+        'action_items': action_items,
+        'found_triggers': found_triggers,
+        'debug_info': {
+            'original_length': len(text),
+            'cleaned_length': len(clean_text),
+            'number_of_action_items': len(action_items)
+        }
+    })
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)

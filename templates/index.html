@@ -2,39 +2,872 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To-Do App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    li.done { text-decoration: line-through; color: gray; }
-    form { display: inline; margin-left: 10px; }
-    input[type="text"] { padding: 5px; }
-    button { padding: 5px 10px; }
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --success: #10b981;
+      --success-hover: #059669;
+      --danger: #ef4444;
+      --danger-hover: #dc2626;
+      --warning: #f59e0b;
+      --warning-hover: #d97706;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body { 
+      font-family: 'Inter', sans-serif;
+      background-color: var(--gray-50);
+      color: var(--gray-800);
+      line-height: 1.5;
+      padding: 0;
+      margin: 0;
+    }
+
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      max-width: calc(100% - 300px);
+    }
+
+    .sidebar {
+      width: 300px;
+      background: white;
+      border-left: 1px solid var(--gray-200);
+      padding: 1.5rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .filter-section {
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      box-shadow: none;
+    }
+
+    .filter-section h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--gray-200);
+      color: var(--gray-800);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .filter-column {
+      flex: none;
+      min-width: auto;
+    }
+
+    .filter-column h3 {
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray-600);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.5rem;
+      background: var(--gray-50);
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+      background: white;
+      border: 1px solid var(--gray-200);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checkbox-label:hover {
+      background: var(--gray-50);
+      border-color: var(--gray-300);
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 1rem;
+      height: 1rem;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .checkbox-label span:not(.filter-count) {
+      flex: 1;
+      font-size: 0.875rem;
+      color: var(--gray-700);
+    }
+
+    .filter-count {
+      background: var(--gray-100);
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      color: var(--gray-600);
+      font-weight: 500;
+      min-width: 2.5rem;
+      text-align: center;
+    }
+
+    @media (max-width: 1024px) {
+      .app-container {
+        flex-direction: column;
+      }
+
+      .main-content {
+        max-width: 100%;
+        padding: 1rem;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-left: none;
+        border-bottom: 1px solid var(--gray-200);
+      }
+
+      .checkbox-group {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .main-content {
+        padding: 0.75rem;
+      }
+
+      .sidebar {
+        padding: 1rem;
+      }
+
+      .checkbox-group {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin: 1.5rem 0 1rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .todo-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 1.25rem;
+      background: white;
+      margin-bottom: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .todo-item.todo { border-left: 4px solid var(--gray-400); }
+    .todo-item.in-progress { border-left: 4px solid var(--warning); }
+    .todo-item.done { 
+      border-left: 4px solid var(--success);
+      opacity: 0.8;
+    }
+
+    .todo-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .todo-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-left: 2rem;
+    }
+
+    .status-badge {
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .status-todo { 
+      background: var(--gray-100);
+      color: var(--gray-600);
+    }
+
+    .status-in-progress { 
+      background: #fef3c7;
+      color: var(--warning-hover);
+    }
+
+    .status-done { 
+      background: #d1fae5;
+      color: var(--success-hover);
+    }
+
+    .assignee-badge {
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      background: var(--gray-100);
+      color: var(--gray-700);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .notes {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+      padding: 0.75rem;
+      background: var(--gray-50);
+      border-radius: 8px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .todo-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+
+    .transcript-section {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 0.75rem;
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.875rem;
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    input[type="text"] {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    button {
+      padding: 0.75rem 1.25rem;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .toggle-btn {
+      background: var(--primary);
+      color: white;
+    }
+
+    .toggle-btn:hover { 
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .delete-btn {
+      background: var(--danger);
+      color: white;
+    }
+
+    .delete-btn:hover { 
+      background: var(--danger-hover);
+      transform: translateY(-1px);
+    }
+
+    .update-btn {
+      background: var(--success);
+      color: white;
+    }
+
+    .update-btn:hover { 
+      background: var(--success-hover);
+      transform: translateY(-1px);
+    }
+
+    .success-message {
+      color: var(--success);
+      background: #d1fae5;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+
+    .task-text {
+      flex-grow: 1;
+      font-weight: 500;
+    }
+
+    .edit-form {
+      display: none;
+      margin-top: 0.75rem;
+      padding: 1rem;
+      background: var(--gray-50);
+      border-radius: 8px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .edit-form.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--gray-700);
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray-500);
+      background: var(--gray-50);
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+
+    .todo-item.hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <h1>To-Do List</h1>
+  <div class="app-container">
+    <div class="main-content">
+      <h1>✨ To-Do List</h1>
 
-  <ul>
-    {% for todo in todos %}
-      <li class="{{ 'done' if todo.done else '' }}">
-        {{ todo.task }}
-        <form action="/toggle/{{ todo.id }}" method="post">
-          <button type="submit">
-            {% if todo.done %}Undo{% else %}Mark as done{% endif %}
-          </button>
+      <div class="card">
+        <form action="/" method="post" class="form-group">
+          <input type="text" name="task" placeholder="What needs to be done?" required>
+          <button type="submit" class="toggle-btn">➕ Add Todo</button>
         </form>
-        <form action="/delete/{{ todo.id }}" method="post">
-          <button type="submit">Delete</button>
-        </form>
-      </li>
-    {% else %}
-      <li>No tasks yet.</li>
-    {% endfor %}
-  </ul>
+      </div>
 
-  <form action="/" method="post">
-    <input type="text" name="task" placeholder="New task" required>
-    <button type="submit">Add Task</button>
-  </form>
+      <div class="transcript-section">
+        <h2>🎯 Extract Todos from Meeting</h2>
+        <form id="transcriptForm" method="POST" action="/extract-todos">
+          <textarea name="text" id="transcriptInput" placeholder="Paste your transcript here..." required></textarea>
+          <button type="submit" class="toggle-btn">✨ Extract Action Items</button>
+        </form>
+        <div id="extractionResult"></div>
+        <div id="debugPanel" style="margin-top: 1rem; padding: 1rem; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; font-family: monospace; font-size: 0.875rem; max-height: 300px; overflow-y: auto;"></div>
+      </div>
+
+      <h2>Your Todos</h2>
+      <div id="todoList">
+        {% for todo in todos %}
+        <div class="todo-item {{ todo.status }}" 
+             data-status="{{ todo.status }}"
+             data-assignee="{{ todo.assignee or 'unassigned' }}">
+          <div class="todo-header">
+            <span class="status-badge status-{{ todo.status }}">
+              {% if todo.status == 'todo' %}
+                ⏳
+              {% elif todo.status == 'in_progress' %}
+                🔄
+              {% else %}
+                ✅
+              {% endif %}
+              {{ todo.status.replace('_', ' ') }}
+            </span>
+            {% if todo.assignee %}
+            <span class="assignee-badge">👥 {{ todo.assignee }}</span>
+            {% endif %}
+            <span class="task-text">{{ todo.task }}</span>
+            <div class="todo-actions">
+              <form action="/toggle/{{ todo.id }}" method="post" style="margin: 0;">
+                <button type="submit" class="toggle-btn">
+                  {% if todo.status == 'todo' %}
+                    🚀 Start
+                  {% elif todo.status == 'in_progress' %}
+                    ✨ Complete
+                  {% else %}
+                    🔄 Reset
+                  {% endif %}
+                </button>
+              </form>
+              <button onclick="toggleEditForm({{ todo.id }})" class="update-btn">✏️ Edit</button>
+              <form action="/delete/{{ todo.id }}" method="post" style="margin: 0;">
+                <button type="submit" class="delete-btn">🗑️ Delete</button>
+              </form>
+            </div>
+          </div>
+          
+          <div class="todo-content">
+            {% if todo.notes %}
+            <div class="notes">📝 {{ todo.notes }}</div>
+            {% endif %}
+            <div id="edit-form-{{ todo.id }}" class="edit-form">
+              <form action="/update_todo/{{ todo.id }}" method="post">
+                <div class="form-group">
+                  <label for="assignee-{{ todo.id }}">👥 Assignee</label>
+                  <input type="text" id="assignee-{{ todo.id }}" name="assignee" placeholder="Who's responsible?" value="{{ todo.assignee or '' }}">
+                </div>
+                <div class="form-group">
+                  <label for="notes-{{ todo.id }}">📝 Notes</label>
+                  <textarea id="notes-{{ todo.id }}" name="notes" placeholder="Add any additional notes...">{{ todo.notes or '' }}</textarea>
+                </div>
+                <button type="submit" class="update-btn">💾 Update Details</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="todo-item">
+          <p style="text-align: center; color: var(--gray-500);">No tasks yet.</p>
+        </div>
+        {% endfor %}
+      </div>
+      <div id="noResults" class="no-results" style="display: none;">
+        🔍 No todos match the current filters. Try adjusting your filter criteria.
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="filter-section">
+        <h2>🔍 Filter Todos</h2>
+        <div class="filter-group">
+          <div class="filter-column">
+            <h3>📊 Status</h3>
+            <div class="checkbox-group" id="statusFilters">
+              <label class="checkbox-label">
+                <input type="checkbox" name="status" value="todo" checked>
+                <span>⏳ To Do</span>
+                <span class="filter-count" id="todo-count">0</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="status" value="in_progress" checked>
+                <span>🔄 In Progress</span>
+                <span class="filter-count" id="in_progress-count">0</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="status" value="done" checked>
+                <span>✅ Done</span>
+                <span class="filter-count" id="done-count">0</span>
+              </label>
+            </div>
+          </div>
+          <div class="filter-column">
+            <h3>👥 Assignee</h3>
+            <div class="checkbox-group" id="assigneeFilters">
+              <label class="checkbox-label">
+                <input type="checkbox" name="assignee" value="unassigned" checked>
+                <span>👤 Unassigned</span>
+                <span class="filter-count" id="unassigned-count">0</span>
+              </label>
+              <!-- Assignee checkboxes will be dynamically added here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize filter functionality
+    function initializeFilters() {
+      const todoItems = document.querySelectorAll('.todo-item');
+      const noResults = document.getElementById('noResults');
+      
+      // Get all filter checkboxes
+      const allFilters = {
+        status: document.querySelectorAll('input[name="status"]'),
+        assignee: document.querySelectorAll('input[name="assignee"]')
+      };
+
+      // Store the original state of all items
+      const itemStates = Array.from(todoItems).map(item => ({
+        element: item,
+        status: item.dataset.status,
+        assignee: item.dataset.assignee
+      }));
+
+      // Update the counts display
+      function updateCounts() {
+        const counts = {
+          status: { todo: 0, in_progress: 0, done: 0 },
+          assignee: { unassigned: 0 }
+        };
+
+        // Count all items (excluding the "No tasks yet" message)
+        const realTodoItems = Array.from(document.querySelectorAll('.todo-item')).filter(
+          el => !el.textContent.includes('No tasks yet')
+        );
+        
+        realTodoItems.forEach(element => {
+          const status = element.dataset.status;
+          const assignee = element.dataset.assignee || 'unassigned';
+          counts.status[status]++;
+          counts.assignee[assignee] = (counts.assignee[assignee] || 0) + 1;
+        });
+
+        // Update status counts
+        Object.entries(counts.status).forEach(([status, count]) => {
+          const element = document.getElementById(`${status}-count`);
+          if (element) element.textContent = count;
+        });
+
+        // Update assignee counts and generate filter checkboxes
+        const assigneeFiltersContainer = document.getElementById('assigneeFilters');
+        const existingAssignees = new Set();
+        
+        // Collect existing assignee checkboxes
+        assigneeFiltersContainer.querySelectorAll('input[name="assignee"]').forEach(input => {
+          if (input.value !== 'unassigned') {
+            existingAssignees.add(input.value);
+          }
+        });
+
+        // Add new assignee checkboxes
+        Object.entries(counts.assignee).forEach(([assignee, count]) => {
+          if (assignee !== 'unassigned' && !existingAssignees.has(assignee)) {
+            const label = document.createElement('label');
+            label.className = 'checkbox-label';
+            label.innerHTML = `
+              <input type="checkbox" name="assignee" value="${assignee}" checked>
+              <span>👤 ${assignee}</span>
+              <span class="filter-count" id="${assignee}-count">${count}</span>
+            `;
+            assigneeFiltersContainer.appendChild(label);
+            
+            // Add event listener to the new checkbox
+            const newCheckbox = label.querySelector('input[type="checkbox"]');
+            if (newCheckbox) {
+              newCheckbox.addEventListener('change', () => {
+                console.log('New filter changed:', newCheckbox.name, newCheckbox.value, newCheckbox.checked);
+                applyFilters();
+                updateCounts();
+              });
+            }
+          }
+          
+          // Update count for existing assignee
+          const element = document.getElementById(`${assignee}-count`);
+          if (element) element.textContent = count;
+        });
+      }
+
+      // Get currently selected filter values
+      function getSelectedFilters() {
+        return {
+          status: Array.from(document.querySelectorAll('input[name="status"]:checked')).map(input => input.value),
+          assignee: Array.from(document.querySelectorAll('input[name="assignee"]:checked')).map(input => input.value)
+        };
+      }
+
+      // Apply filters to todo items
+      function applyFilters() {
+        const filters = getSelectedFilters();
+        let visibleCount = 0;
+
+        // Find the "No tasks yet" message
+        const noTasksYetElement = document.querySelector('.todo-item:has-text("No tasks yet")');
+        // Find all real todo items (exclude the empty state message)
+        const realTodoItems = Array.from(document.querySelectorAll('.todo-item')).filter(
+          el => !el.textContent.includes('No tasks yet')
+        );
+
+        // If there are no real todo items, show the empty state and hide all others
+        if (realTodoItems.length === 0) {
+          if (noTasksYetElement) noTasksYetElement.style.display = '';
+          if (noResults) noResults.style.display = 'none';
+          // Hide any other .todo-item (shouldn't be any, but just in case)
+          document.querySelectorAll('.todo-item').forEach(el => {
+            if (el !== noTasksYetElement) el.style.display = 'none';
+          });
+          return;
+        } else {
+          // Hide the empty state message
+          if (noTasksYetElement) noTasksYetElement.style.display = 'none';
+        }
+
+        // Apply filters to real todo items
+        realTodoItems.forEach(element => {
+          const status = element.dataset.status;
+          const assignee = element.dataset.assignee || 'unassigned';
+          
+          // Check if status matches any selected status filter
+          const statusMatch = filters.status.length === 0 || filters.status.includes(status);
+          
+          // Check if assignee matches any selected assignee filter
+          const assigneeMatch = filters.assignee.length === 0 || filters.assignee.includes(assignee);
+          
+          const isVisible = statusMatch && assigneeMatch;
+          element.style.display = isVisible ? '' : 'none';
+          if (isVisible) visibleCount++;
+        });
+
+        // Show no results message only if there are items but none match filters
+        if (noResults) noResults.style.display = visibleCount === 0 ? '' : 'none';
+      }
+
+      // Add change event listeners to all filters
+      function setupFilterEventListeners() {
+        Object.values(allFilters).forEach(filterGroup => {
+          filterGroup.forEach(filter => {
+            filter.addEventListener('change', () => {
+              console.log('Filter changed:', filter.name, filter.value, filter.checked);
+              applyFilters();
+              updateCounts();
+            });
+          });
+        });
+      }
+
+      // Initial setup
+      updateCounts();
+      applyFilters();
+      setupFilterEventListeners();
+    }
+
+    // Initialize filters when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM loaded, initializing filters...');
+      initializeFilters();
+      
+      // Add a small delay to ensure everything is ready
+      setTimeout(() => {
+        console.log('Filters initialized, checking empty state...');
+        const todoItems = document.querySelectorAll('.todo-item');
+        console.log('Found', todoItems.length, 'todo items');
+        
+        // If no todo items (except the "No tasks yet" message), ensure it's visible
+        const noTasksYet = document.querySelector('.todo-item:has-text("No tasks yet")');
+        if (noTasksYet) {
+          console.log('Found "No tasks yet" message, ensuring visibility');
+          noTasksYet.style.display = '';
+        }
+      }, 100);
+      
+      const form = document.getElementById('transcriptForm');
+      if (form) {
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          const text = document.getElementById('transcriptInput').value;
+          if (!text) {
+            alert('Please enter some text to extract action items from.');
+            return;
+          }
+          
+          const extractionResult = document.getElementById('extractionResult');
+          extractionResult.innerHTML = '<div style="color: var(--gray-600);">🔄 Extracting action items...</div>';
+          
+          try {
+            const response = await fetch('/extract-todos', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ text: text })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+              // Show success message with count and reload notice
+              extractionResult.innerHTML = `
+                <div style="margin-top: 1rem; padding: 1rem; background: #d1fae5; border-radius: 8px; color: var(--success-hover); font-size: 1.1em; font-weight: 500;">
+                  ✨ ${data.message}
+                  <div style="margin-top: 0.5rem; font-size: 0.9em; color: var(--gray-600);">
+                      Refreshing page in 2 seconds...
+                  </div>
+                </div>
+              `;
+              
+              document.getElementById('transcriptInput').value = '';
+
+              // Fetch and update the todo list
+              const todosResponse = await fetch('/todos');
+              const todos = await todosResponse.json();
+              
+              const todoList = document.getElementById('todoList');
+              todoList.innerHTML = todos.map(todo => `
+                <div class="todo-item ${todo.status}" 
+                     data-status="${todo.status}"
+                     data-assignee="${todo.assignee || 'unassigned'}">
+                  <div class="todo-header">
+                    <span class="status-badge status-${todo.status}">
+                      ${todo.status === 'todo' ? '⏳' : 
+                        todo.status === 'in_progress' ? '🔄' : '✅'}
+                      ${todo.status.replace('_', ' ')}
+                    </span>
+                    ${todo.assignee ? `
+                      <span class="assignee-badge">👥 ${todo.assignee}</span>
+                    ` : ''}
+                    <span class="task-text">${todo.task}</span>
+                    <div class="todo-actions">
+                      <form action="/toggle/${todo.id}" method="post" style="margin: 0;">
+                        <button type="submit" class="toggle-btn">
+                          ${todo.status === 'todo' ? '🚀 Start' : 
+                            todo.status === 'in_progress' ? '✨ Complete' : '🔄 Reset'}
+                        </button>
+                      </form>
+                      <button onclick="toggleEditForm(${todo.id})" class="update-btn">✏️ Edit</button>
+                      <form action="/delete/${todo.id}" method="post" style="margin: 0;">
+                        <button type="submit" class="delete-btn">🗑️ Delete</button>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="todo-content">
+                    ${todo.notes ? `
+                      <div class="notes">📝 ${todo.notes}</div>
+                    ` : ''}
+                    <div id="edit-form-${todo.id}" class="edit-form">
+                      <form action="/update_todo/${todo.id}" method="post">
+                        <div class="form-group">
+                          <label for="assignee-${todo.id}">👥 Assignee</label>
+                          <input type="text" id="assignee-${todo.id}" name="assignee" 
+                                 placeholder="Who's responsible?" value="${todo.assignee || ''}">
+                        </div>
+                        <div class="form-group">
+                          <label for="notes-${todo.id}">📝 Notes</label>
+                          <textarea id="notes-${todo.id}" name="notes" 
+                                    placeholder="Add any additional notes...">${todo.notes || ''}</textarea>
+                        </div>
+                        <button type="submit" class="update-btn">💾 Update Details</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              `).join('') || `
+                <div class="card">
+                  <p style="text-align: center; color: var(--gray-500);">✨ No todos yet. Add one above! 🎯</p>
+                </div>
+              `;
+
+              // Add a delay before reloading
+              await new Promise(resolve => setTimeout(resolve, 2000));
+              window.location.reload();
+            } else {
+              extractionResult.innerHTML = `
+                <div style="margin-top: 1rem; padding: 1rem; background: #fee2e2; border-radius: 8px; color: var(--danger-hover);">
+                  ❌ Error: ${data.error || 'Failed to extract action items'}
+                </div>
+              `;
+            }
+          } catch (error) {
+            console.error('Fetch error:', error);
+            extractionResult.innerHTML = `
+              <div style="margin-top: 1rem; padding: 1rem; background: #fee2e2; border-radius: 8px; color: var(--danger-hover);">
+                ❌ Error: Failed to send request to server
+              </div>
+            `;
+            }
+        });
+      }
+    });
+
+    function toggleEditForm(todoId) {
+      const form = document.getElementById(`edit-form-${todoId}`);
+      form.classList.toggle('active');
+    }
+  </script>
 </body>
 </html>
