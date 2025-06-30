@@ -15394,3 +15394,659 @@ CREATE TABLE todo (
 2025-06-29 20:58:33,148 - INFO - 127.0.0.1 - - [29/Jun/2025 20:58:33] "GET / HTTP/1.1" 200 -
 2025-06-29 20:58:33,852 - INFO - 127.0.0.1 - - [29/Jun/2025 20:58:33] "[32mPOST /update_todo/1 HTTP/1.1[0m" 302 -
 2025-06-29 20:58:33,862 - INFO - 127.0.0.1 - - [29/Jun/2025 20:58:33] "GET / HTTP/1.1" 200 -
+2025-06-29 21:14:20,486 - INFO - 127.0.0.1 - - [29/Jun/2025 21:14:20] "GET / HTTP/1.1" 200 -
+2025-06-29 21:16:47,766 - DEBUG - 
+=== Extract Todos Endpoint Called ===
+2025-06-29 21:16:47,767 - ERROR - Error in AI extraction: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+2025-06-29 21:16:47,768 - DEBUG - 
+Extracted 6 action items:
+2025-06-29 21:16:47,769 - DEBUG - 1. Okay, so first things first — the Arista onboarding, right? We need to get them moving.
+2025-06-29 21:16:47,769 - DEBUG - 2. I think Alex said he'd meet with Arista next week — can you confirm that?
+2025-06-29 21:16:47,769 - DEBUG - 3. Also, we should probably start working on that payment service. I know we talked about it last week, but I don’t think anything’s been done yet.
+2025-06-29 21:16:47,770 - DEBUG - 4. Oh, and someone — maybe Priya? — should handle the data migration for autopay and scheduled payments. That’s gonna be a blocker if we don’t get on it soon.
+2025-06-29 21:16:47,770 - DEBUG - 5. Let’s also make sure to get feedback from Arista on the transition process. It’d be good to hear how smooth or bumpy it's been for them so far.
+2025-06-29 21:16:47,771 - DEBUG - 6. One last thing — we’ll need to create that internal doc explaining how to use the payment interface. Maybe share that with the support team?
+2025-06-29 21:16:47,781 - DEBUG - Creating new todo: Okay, so first things first — the Arista onboarding, right? We need to get them moving.
+2025-06-29 21:16:47,785 - DEBUG - Creating new todo: I think Alex said he'd meet with Arista next week — can you confirm that?
+2025-06-29 21:16:47,787 - DEBUG - Creating new todo: Also, we should probably start working on that payment service. I know we talked about it last week, but I don’t think anything’s been done yet.
+2025-06-29 21:16:47,789 - DEBUG - Creating new todo: Oh, and someone — maybe Priya? — should handle the data migration for autopay and scheduled payments. That’s gonna be a blocker if we don’t get on it soon.
+2025-06-29 21:16:47,791 - DEBUG - Creating new todo: Let’s also make sure to get feedback from Arista on the transition process. It’d be good to hear how smooth or bumpy it's been for them so far.
+2025-06-29 21:16:47,794 - DEBUG - Creating new todo: One last thing — we’ll need to create that internal doc explaining how to use the payment interface. Maybe share that with the support team?
+2025-06-29 21:16:47,814 - INFO - 127.0.0.1 - - [29/Jun/2025 21:16:47] "[35m[1mPOST /extract-todos HTTP/1.1[0m" 201 -
+2025-06-29 21:16:47,825 - INFO - 127.0.0.1 - - [29/Jun/2025 21:16:47] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:16:49,851 - INFO - 127.0.0.1 - - [29/Jun/2025 21:16:49] "GET / HTTP/1.1" 200 -
+2025-06-29 21:22:57,279 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:57] "GET / HTTP/1.1" 200 -
+2025-06-29 21:22:58,542 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:58,569 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:58,587 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mDELETE /todos/2 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:58,608 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mDELETE /todos/3 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:58,631 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mDELETE /todos/4 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:58,651 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mDELETE /todos/5 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:58,672 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mDELETE /todos/6 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:58,692 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mDELETE /todos/7 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:58,716 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:22:58,741 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:22:58,764 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:58,783 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:58,802 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mDELETE /todos/2 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:58,830 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:58,859 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:22:58,871 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:58,887 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:58,908 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:58,924 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:58,945 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:22:58,970 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "PUT /todos/1 HTTP/1.1" 200 -
+2025-06-29 21:22:58,983 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:58] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:59,004 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:59,025 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:59,046 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:22:59,067 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:59,078 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:59,090 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:59,106 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:59,126 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:22:59,136 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "[33mPUT /todos/99999 HTTP/1.1[0m" 404 -
+2025-06-29 21:22:59,153 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:59,173 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:59,192 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:59,215 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:22:59,223 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "[31m[1mPOST /todos HTTP/1.1[0m" 400 -
+2025-06-29 21:22:59,235 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:22:59,254 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:22:59,270 - INFO - 127.0.0.1 - - [29/Jun/2025 21:22:59] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:23:00,372 - INFO - Database initialized
+2025-06-29 21:23:00,525 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-06-29 21:23:00,526 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-29 21:23:00,529 - INFO -  * Restarting with stat
+2025-06-29 21:23:00,558 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:00] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:01,437 - INFO - Database reset for testing
+2025-06-29 21:23:01,437 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:01] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:23:01,464 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:01] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:02,228 - INFO - Database initialized
+2025-06-29 21:23:02,243 - INFO - Database initialized
+2025-06-29 21:23:02,262 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-06-29 21:23:02,262 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-29 21:23:02,264 - INFO -  * Restarting with stat
+2025-06-29 21:23:02,267 - WARNING -  * Debugger is active!
+2025-06-29 21:23:02,271 - INFO -  * Debugger PIN: 590-113-304
+2025-06-29 21:23:03,681 - INFO - Database initialized
+2025-06-29 21:23:03,703 - WARNING -  * Debugger is active!
+2025-06-29 21:23:03,707 - INFO -  * Debugger PIN: 590-113-304
+2025-06-29 21:23:06,004 - INFO - Database reset for testing
+2025-06-29 21:23:06,005 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:06] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:23:06,025 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:06] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:06,992 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:06] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:07,003 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:07] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:07,368 - INFO - Database reset for testing
+2025-06-29 21:23:07,368 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:07] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:23:07,388 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:07] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:08,344 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:08] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:08,354 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:08] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:08,544 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:08] "[32mPOST /toggle/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:23:08,552 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:08] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:08,679 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:08] "[32mPOST /toggle/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:23:08,690 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:08] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:08,832 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:08] "[32mPOST /toggle/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:23:08,844 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:08] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:09,133 - INFO - Database reset for testing
+2025-06-29 21:23:09,134 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:09] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:23:09,151 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:09] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:10,063 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:10] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:10,071 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:10] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:10,260 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:10] "[32mPOST /delete/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:23:10,267 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:10] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:10,504 - INFO - Database reset for testing
+2025-06-29 21:23:10,505 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:10] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:23:10,518 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:10] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:12,682 - INFO - Database reset for testing
+2025-06-29 21:23:12,683 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:12] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:23:12,699 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:12] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:13,627 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:13] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:13,637 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:13] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:13,926 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:13] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:13,937 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:13] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:14,209 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:14] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:14,219 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:14] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:14,592 - INFO - Database reset for testing
+2025-06-29 21:23:14,593 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:14] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:23:14,612 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:14] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:15,582 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:15] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:15,598 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:15] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:15,813 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:15] "[32mPOST /toggle/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:23:15,821 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:15] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:15,926 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:15] "[32mPOST /toggle/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:23:15,936 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:15] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:16,013 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:16] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:16,797 - INFO - Database reset for testing
+2025-06-29 21:23:16,798 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:16] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:23:16,821 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:16] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:17,777 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:17] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:17,788 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:17] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:18,173 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:18] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:18,182 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:18] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:18,329 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:18] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:18,339 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:18] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:18,577 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:18] "[32mPOST /update_todo/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:23:18,586 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:18] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:19,292 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:19] "[32mPOST /update_todo/2 HTTP/1.1[0m" 302 -
+2025-06-29 21:23:19,301 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:19] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:21,415 - INFO - Database reset for testing
+2025-06-29 21:23:21,415 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:21] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:23:21,432 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:21] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:22,377 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:22] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:22,386 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:22] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:22,757 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:22] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:22,766 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:22] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:22,908 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:22] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:22,916 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:22] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:23,144 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:23] "[32mPOST /update_todo/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:23:23,153 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:23] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:23,859 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:23] "[32mPOST /update_todo/2 HTTP/1.1[0m" 302 -
+2025-06-29 21:23:23,867 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:23] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:26,389 - INFO - Database reset for testing
+2025-06-29 21:23:26,390 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:26] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:23:26,404 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:26] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:27,346 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:27] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:23:27,356 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:27] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:27,612 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:27] "[32mPOST /update_todo/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:23:27,621 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:27] "GET / HTTP/1.1" 200 -
+2025-06-29 21:23:28,360 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:28] "[32mPOST /update_todo/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:23:28,370 - INFO - 127.0.0.1 - - [29/Jun/2025 21:23:28] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:02,154 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:02] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:03,399 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:03,428 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:29:03,453 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:29:03,482 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:29:03,508 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:03,531 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:29:03,552 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mDELETE /todos/2 HTTP/1.1[0m" 204 -
+2025-06-29 21:29:03,577 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:03,603 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:29:03,617 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:03,632 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:03,651 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:29:03,671 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:03,694 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:29:03,723 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "PUT /todos/1 HTTP/1.1" 200 -
+2025-06-29 21:29:03,737 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:03,757 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:29:03,775 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:03,800 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:29:03,822 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:29:03,823 - INFO - Database initialized
+2025-06-29 21:29:03,833 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:03,847 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:03,866 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:03,873 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-06-29 21:29:03,873 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-29 21:29:03,875 - INFO -  * Restarting with stat
+2025-06-29 21:29:03,888 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:29:03,905 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[33mPUT /todos/99999 HTTP/1.1[0m" 404 -
+2025-06-29 21:29:03,919 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:03,940 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:29:03,959 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:03,981 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[35m[1mPOST /todos HTTP/1.1[0m" 201 -
+2025-06-29 21:29:03,990 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:03] "[31m[1mPOST /todos HTTP/1.1[0m" 400 -
+2025-06-29 21:29:04,001 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:04] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:04,021 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:04] "[35m[1mDELETE /todos/1 HTTP/1.1[0m" 204 -
+2025-06-29 21:29:04,035 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:04] "GET /todos HTTP/1.1" 200 -
+2025-06-29 21:29:05,578 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:05] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:06,056 - INFO - Database reset for testing
+2025-06-29 21:29:06,057 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:06] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:29:06,101 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:06] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:06,266 - INFO - Database initialized
+2025-06-29 21:29:06,290 - WARNING -  * Debugger is active!
+2025-06-29 21:29:06,296 - INFO -  * Debugger PIN: 590-113-304
+2025-06-29 21:29:07,275 - INFO - Database reset for testing
+2025-06-29 21:29:07,276 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:07] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:29:07,302 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:07] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:07,682 - INFO - Database initialized
+2025-06-29 21:29:07,713 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-06-29 21:29:07,713 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-29 21:29:07,715 - INFO -  * Restarting with stat
+2025-06-29 21:29:08,297 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:08] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:08,310 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:08] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:08,714 - INFO - Database reset for testing
+2025-06-29 21:29:08,714 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:08] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:29:08,732 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:08] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:09,496 - INFO - Database initialized
+2025-06-29 21:29:09,516 - WARNING -  * Debugger is active!
+2025-06-29 21:29:09,520 - INFO -  * Debugger PIN: 590-113-304
+2025-06-29 21:29:09,713 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:09] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:09,723 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:09] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:09,913 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:09] "[32mPOST /toggle/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:29:09,930 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:09] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:10,044 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:10] "[32mPOST /toggle/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:29:10,052 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:10] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:10,180 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:10] "[32mPOST /toggle/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:29:10,194 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:10] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:10,491 - INFO - Database reset for testing
+2025-06-29 21:29:10,491 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:10] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:29:10,507 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:10] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:11,584 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:11] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:11,603 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:11] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:11,811 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:11] "[32mPOST /delete/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:29:11,820 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:11] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:12,070 - INFO - Database reset for testing
+2025-06-29 21:29:12,070 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:12] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:29:12,085 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:12] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:14,213 - INFO - Database reset for testing
+2025-06-29 21:29:14,213 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:14] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:29:14,228 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:14] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:15,197 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:15] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:15,205 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:15] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:15,611 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:15] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:15,620 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:15] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:15,798 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:15] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:15,808 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:15] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:16,230 - INFO - Database reset for testing
+2025-06-29 21:29:16,230 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:16] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:29:16,248 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:16] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:17,216 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:17] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:17,225 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:17] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:17,394 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:17] "[32mPOST /toggle/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:29:17,403 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:17] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:17,509 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:17] "[32mPOST /toggle/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:29:17,518 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:17] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:17,575 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:17] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:18,350 - INFO - Database reset for testing
+2025-06-29 21:29:18,351 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:18] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:29:18,368 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:18] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:19,297 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:19] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:19,306 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:19] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:19,708 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:19] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:19,716 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:19] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:19,863 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:19] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:19,872 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:19] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:20,130 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:20] "[32mPOST /update_todo/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:29:20,139 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:20] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:20,829 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:20] "[32mPOST /update_todo/2 HTTP/1.1[0m" 302 -
+2025-06-29 21:29:20,838 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:20] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:22,952 - INFO - Database reset for testing
+2025-06-29 21:29:22,953 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:22] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:29:22,966 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:22] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:23,934 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:23] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:23,943 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:23] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:24,342 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:24] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:24,350 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:24] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:24,494 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:24] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:24,503 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:24] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:24,731 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:24] "[32mPOST /update_todo/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:29:24,741 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:24] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:25,449 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:25] "[32mPOST /update_todo/2 HTTP/1.1[0m" 302 -
+2025-06-29 21:29:25,459 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:25] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:28,013 - INFO - Database reset for testing
+2025-06-29 21:29:28,013 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:28] "POST /reset-db HTTP/1.1" 200 -
+2025-06-29 21:29:28,026 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:28] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:28,960 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:28] "[32mPOST / HTTP/1.1[0m" 302 -
+2025-06-29 21:29:28,970 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:28] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:29,211 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:29] "[32mPOST /update_todo/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:29:29,221 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:29] "GET / HTTP/1.1" 200 -
+2025-06-29 21:29:29,960 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:29] "[32mPOST /update_todo/1 HTTP/1.1[0m" 302 -
+2025-06-29 21:29:29,969 - INFO - 127.0.0.1 - - [29/Jun/2025 21:29:29] "GET / HTTP/1.1" 200 -
+2025-06-29 22:27:36,068 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-29 22:27:36,324 - INFO -  * Restarting with stat
+2025-06-29 22:27:36,490 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-29 22:27:36,658 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-29 22:27:36,791 - INFO -  * Restarting with stat
+2025-06-29 22:27:36,858 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-29 22:27:36,859 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-29 22:27:37,028 - INFO -  * Restarting with stat
+2025-06-29 22:27:37,341 - INFO -  * Restarting with stat
+2025-06-29 22:27:37,343 - INFO -  * Restarting with stat
+2025-06-29 22:27:38,640 - INFO - Database initialized
+2025-06-29 22:27:38,666 - WARNING -  * Debugger is active!
+2025-06-29 22:27:38,672 - INFO -  * Debugger PIN: 590-113-304
+2025-06-29 22:27:39,083 - INFO - Database initialized
+2025-06-29 22:27:39,137 - WARNING -  * Debugger is active!
+2025-06-29 22:27:39,143 - INFO -  * Debugger PIN: 590-113-304
+2025-06-29 22:27:39,304 - INFO - Database initialized
+2025-06-29 22:27:39,394 - WARNING -  * Debugger is active!
+2025-06-29 22:27:39,399 - INFO -  * Debugger PIN: 590-113-304
+2025-06-29 22:27:39,553 - INFO - Database initialized
+2025-06-29 22:27:39,564 - INFO - Database initialized
+2025-06-29 22:27:39,573 - WARNING -  * Debugger is active!
+2025-06-29 22:27:39,578 - INFO -  * Debugger PIN: 590-113-304
+2025-06-29 22:27:39,593 - WARNING -  * Debugger is active!
+2025-06-29 22:27:39,597 - INFO -  * Debugger PIN: 590-113-304
+2025-06-29 22:46:33,250 - INFO - 127.0.0.1 - - [29/Jun/2025 22:46:33] "GET / HTTP/1.1" 200 -
+2025-06-30 21:38:08,147 - INFO - 127.0.0.1 - - [30/Jun/2025 21:38:08] "GET / HTTP/1.1" 200 -
+2025-06-30 21:38:11,267 - INFO - 127.0.0.1 - - [30/Jun/2025 21:38:11] "GET / HTTP/1.1" 200 -
+2025-06-30 21:41:12,789 - INFO - Database initialized
+2025-06-30 21:41:12,865 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-06-30 21:41:12,865 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 21:41:12,868 - INFO -  * Restarting with stat
+2025-06-30 21:41:14,495 - INFO - Database initialized
+2025-06-30 21:41:14,529 - WARNING -  * Debugger is active!
+2025-06-30 21:41:14,537 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 21:41:18,918 - INFO - 127.0.0.1 - - [30/Jun/2025 21:41:18] "GET / HTTP/1.1" 200 -
+2025-06-30 21:41:20,159 - INFO - 127.0.0.1 - - [30/Jun/2025 21:41:20] "GET / HTTP/1.1" 200 -
+2025-06-30 21:41:20,371 - INFO - 127.0.0.1 - - [30/Jun/2025 21:41:20] "GET / HTTP/1.1" 200 -
+2025-06-30 21:41:23,857 - INFO - 127.0.0.1 - - [30/Jun/2025 21:41:23] "GET / HTTP/1.1" 200 -
+2025-06-30 21:41:45,578 - INFO - 127.0.0.1 - - [30/Jun/2025 21:41:45] "GET / HTTP/1.1" 200 -
+2025-06-30 21:41:46,714 - INFO - 127.0.0.1 - - [30/Jun/2025 21:41:46] "GET / HTTP/1.1" 200 -
+2025-06-30 21:41:46,934 - INFO - 127.0.0.1 - - [30/Jun/2025 21:41:46] "GET / HTTP/1.1" 200 -
+2025-06-30 21:42:14,753 - INFO - 127.0.0.1 - - [30/Jun/2025 21:42:14] "GET / HTTP/1.1" 200 -
+2025-06-30 21:46:24,426 - INFO - 127.0.0.1 - - [30/Jun/2025 21:46:24] "GET / HTTP/1.1" 200 -
+2025-06-30 21:49:08,945 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 21:49:09,317 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 21:49:09,396 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 21:49:09,423 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 21:49:09,444 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 21:49:09,479 - INFO -  * Restarting with stat
+2025-06-30 21:49:10,047 - INFO -  * Restarting with stat
+2025-06-30 21:49:10,058 - INFO -  * Restarting with stat
+2025-06-30 21:49:10,089 - INFO -  * Restarting with stat
+2025-06-30 21:49:10,394 - INFO -  * Restarting with stat
+2025-06-30 21:49:16,718 - INFO - Database initialized
+2025-06-30 21:49:16,718 - INFO - Database initialized
+2025-06-30 21:49:16,718 - INFO - Database initialized
+2025-06-30 21:49:16,718 - INFO - Database initialized
+2025-06-30 21:49:16,726 - INFO - Database initialized
+2025-06-30 21:49:16,853 - WARNING -  * Debugger is active!
+2025-06-30 21:49:16,853 - WARNING -  * Debugger is active!
+2025-06-30 21:49:16,854 - WARNING -  * Debugger is active!
+2025-06-30 21:49:16,855 - WARNING -  * Debugger is active!
+2025-06-30 21:49:16,853 - WARNING -  * Debugger is active!
+2025-06-30 21:49:16,871 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 21:49:16,872 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 21:49:16,872 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 21:49:16,873 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 21:49:16,874 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 21:49:58,209 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 21:49:58,220 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 21:49:58,241 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 21:49:58,242 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 21:49:58,242 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 21:49:58,614 - INFO -  * Restarting with stat
+2025-06-30 21:49:58,636 - INFO -  * Restarting with stat
+2025-06-30 21:49:58,660 - INFO -  * Restarting with stat
+2025-06-30 21:49:58,676 - INFO -  * Restarting with stat
+2025-06-30 21:49:58,681 - INFO -  * Restarting with stat
+2025-06-30 21:50:01,444 - INFO - Database initialized
+2025-06-30 21:50:01,445 - INFO - Database initialized
+2025-06-30 21:50:01,447 - INFO - Database initialized
+2025-06-30 21:50:01,476 - INFO - Database initialized
+2025-06-30 21:50:01,493 - WARNING -  * Debugger is active!
+2025-06-30 21:50:01,494 - WARNING -  * Debugger is active!
+2025-06-30 21:50:01,497 - WARNING -  * Debugger is active!
+2025-06-30 21:50:01,501 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 21:50:01,501 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 21:50:01,502 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 21:50:01,524 - WARNING -  * Debugger is active!
+2025-06-30 21:50:01,535 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 21:50:01,543 - INFO - Database initialized
+2025-06-30 21:50:01,569 - WARNING -  * Debugger is active!
+2025-06-30 21:50:01,573 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 22:17:06,020 - INFO - 127.0.0.1 - - [30/Jun/2025 22:17:06] "GET / HTTP/1.1" 200 -
+2025-06-30 22:17:06,197 - INFO - 127.0.0.1 - - [30/Jun/2025 22:17:06] "GET / HTTP/1.1" 200 -
+2025-06-30 22:17:25,140 - INFO - Database initialized
+2025-06-30 22:17:25,207 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-06-30 22:17:25,208 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 22:17:25,214 - INFO -  * Restarting with stat
+2025-06-30 22:17:27,123 - INFO - Database initialized
+2025-06-30 22:17:27,155 - WARNING -  * Debugger is active!
+2025-06-30 22:17:27,163 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 22:19:19,080 - INFO - 127.0.0.1 - - [30/Jun/2025 22:19:19] "GET / HTTP/1.1" 200 -
+2025-06-30 22:19:20,215 - INFO - 127.0.0.1 - - [30/Jun/2025 22:19:20] "GET / HTTP/1.1" 200 -
+2025-06-30 22:19:20,436 - INFO - 127.0.0.1 - - [30/Jun/2025 22:19:20] "GET / HTTP/1.1" 200 -
+2025-06-30 22:19:24,306 - DEBUG - 
+=== Extract Todos Endpoint Called ===
+2025-06-30 22:19:24,309 - DEBUG - 
+Calling extract_action_items...
+2025-06-30 22:19:24,310 - ERROR - Error in AI extraction: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+2025-06-30 22:19:24,312 - DEBUG - 
+Extracted 4 action items:
+2025-06-30 22:19:24,314 - DEBUG - 1. Reviewed onboarding flow feedback.
+2025-06-30 22:19:24,591 - DEBUG - 3. Update the README to include setup instructions for new developers. (Alice)
+2025-06-30 22:19:24,593 - DEBUG - 4. Schedule a follow-up meeting with the design team. (Carol)
+2025-06-30 22:19:24,594 - DEBUG - 
+Processing item: Reviewed onboarding flow feedback.
+2025-06-30 22:19:24,605 - DEBUG - Creating new todo: Reviewed onboarding flow feedback.
+2025-06-30 22:19:24,606 - ERROR - GitHub token or repo not set in environment variables.
+2025-06-30 22:19:24,653 - ERROR - GitHub token or repo not set in environment variables.
+2025-06-30 22:19:24,654 - DEBUG - 
+Processing item: Update the README to include setup instructions for new developers. (Alice)
+2025-06-30 22:19:24,659 - DEBUG - Creating new todo: Update the README to include setup instructions for new developers. (Alice)
+2025-06-30 22:19:24,660 - ERROR - GitHub token or repo not set in environment variables.
+2025-06-30 22:19:24,661 - DEBUG - 
+Processing item: Schedule a follow-up meeting with the design team. (Carol)
+2025-06-30 22:19:24,664 - DEBUG - Creating new todo: Schedule a follow-up meeting with the design team. (Carol)
+2025-06-30 22:19:24,665 - ERROR - GitHub token or repo not set in environment variables.
+2025-06-30 22:19:24,666 - DEBUG - 
+Committing 4 new todos to database
+2025-06-30 22:19:24,716 - INFO - 127.0.0.1 - - [30/Jun/2025 22:19:24] "[35m[1mPOST /extract-todos HTTP/1.1[0m" 201 -
+2025-06-30 22:19:24,730 - INFO - 127.0.0.1 - - [30/Jun/2025 22:19:24] "GET /todos HTTP/1.1" 200 -
+2025-06-30 22:19:26,764 - INFO - 127.0.0.1 - - [30/Jun/2025 22:19:26] "GET / HTTP/1.1" 200 -
+2025-06-30 22:19:34,152 - INFO - 127.0.0.1 - - [30/Jun/2025 22:19:34] "[32mPOST /delete/3 HTTP/1.1[0m" 302 -
+2025-06-30 22:19:34,169 - INFO - 127.0.0.1 - - [30/Jun/2025 22:19:34] "GET / HTTP/1.1" 200 -
+2025-06-30 22:19:40,852 - INFO - 127.0.0.1 - - [30/Jun/2025 22:19:40] "GET / HTTP/1.1" 200 -
+2025-06-30 22:31:41,829 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 22:31:41,830 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 22:31:41,895 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 22:31:42,237 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 22:31:42,228 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 22:31:42,413 - INFO -  * Restarting with stat
+2025-06-30 22:31:42,417 - INFO -  * Restarting with stat
+2025-06-30 22:31:42,507 - INFO -  * Restarting with stat
+2025-06-30 22:31:42,735 - INFO -  * Restarting with stat
+2025-06-30 22:31:42,771 - INFO -  * Restarting with stat
+2025-06-30 22:31:45,300 - INFO - Database initialized
+2025-06-30 22:31:45,335 - WARNING -  * Debugger is active!
+2025-06-30 22:31:45,342 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 22:31:45,348 - INFO - Database initialized
+2025-06-30 22:31:45,379 - WARNING -  * Debugger is active!
+2025-06-30 22:31:45,387 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 22:31:45,408 - INFO - Database initialized
+2025-06-30 22:31:45,437 - WARNING -  * Debugger is active!
+2025-06-30 22:31:45,442 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 22:31:45,449 - INFO - Database initialized
+2025-06-30 22:31:45,454 - INFO - Database initialized
+2025-06-30 22:31:45,492 - WARNING -  * Debugger is active!
+2025-06-30 22:31:45,502 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 22:31:45,503 - WARNING -  * Debugger is active!
+2025-06-30 22:31:45,510 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 22:32:13,063 - INFO - Database initialized
+2025-06-30 22:32:13,112 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-06-30 22:32:13,113 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 22:32:13,115 - INFO -  * Restarting with stat
+2025-06-30 22:32:14,674 - INFO - Database initialized
+2025-06-30 22:32:14,705 - WARNING -  * Debugger is active!
+2025-06-30 22:32:14,713 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 22:32:25,698 - INFO - 127.0.0.1 - - [30/Jun/2025 22:32:25] "GET / HTTP/1.1" 200 -
+2025-06-30 22:32:32,493 - INFO - 127.0.0.1 - - [30/Jun/2025 22:32:32] "GET / HTTP/1.1" 200 -
+2025-06-30 22:32:32,653 - INFO - 127.0.0.1 - - [30/Jun/2025 22:32:32] "GET / HTTP/1.1" 200 -
+2025-06-30 22:32:32,811 - INFO - 127.0.0.1 - - [30/Jun/2025 22:32:32] "GET / HTTP/1.1" 200 -
+2025-06-30 22:32:32,980 - INFO - 127.0.0.1 - - [30/Jun/2025 22:32:32] "GET / HTTP/1.1" 200 -
+2025-06-30 22:32:35,725 - INFO - 127.0.0.1 - - [30/Jun/2025 22:32:35] "GET / HTTP/1.1" 200 -
+2025-06-30 22:34:38,951 - INFO - 127.0.0.1 - - [30/Jun/2025 22:34:38] "[32mPOST /delete/1 HTTP/1.1[0m" 302 -
+2025-06-30 22:34:38,965 - INFO - 127.0.0.1 - - [30/Jun/2025 22:34:38] "GET / HTTP/1.1" 200 -
+2025-06-30 22:34:39,961 - INFO - 127.0.0.1 - - [30/Jun/2025 22:34:39] "[32mPOST /delete/2 HTTP/1.1[0m" 302 -
+2025-06-30 22:34:39,974 - INFO - 127.0.0.1 - - [30/Jun/2025 22:34:39] "GET / HTTP/1.1" 200 -
+2025-06-30 22:34:40,664 - INFO - 127.0.0.1 - - [30/Jun/2025 22:34:40] "[32mPOST /delete/4 HTTP/1.1[0m" 302 -
+2025-06-30 22:34:40,677 - INFO - 127.0.0.1 - - [30/Jun/2025 22:34:40] "GET / HTTP/1.1" 200 -
+2025-06-30 22:34:41,705 - INFO - 127.0.0.1 - - [30/Jun/2025 22:34:41] "[32mPOST /delete/5 HTTP/1.1[0m" 302 -
+2025-06-30 22:34:41,722 - INFO - 127.0.0.1 - - [30/Jun/2025 22:34:41] "GET / HTTP/1.1" 200 -
+2025-06-30 22:34:45,293 - INFO - 127.0.0.1 - - [30/Jun/2025 22:34:45] "GET / HTTP/1.1" 200 -
+2025-06-30 22:34:48,819 - DEBUG - 
+=== Extract Todos Endpoint Called ===
+2025-06-30 22:34:48,820 - DEBUG - 
+Calling extract_action_items...
+2025-06-30 22:34:48,821 - ERROR - Error in AI extraction: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+2025-06-30 22:34:48,822 - DEBUG - 
+Extracted 2 action items:
+2025-06-30 22:34:48,823 - DEBUG - 1. Update the README to include setup instructions for new developers. (Alice)
+2025-06-30 22:34:48,823 - DEBUG - 2. Schedule a follow-up meeting with the design team. (Carol)
+2025-06-30 22:34:48,824 - DEBUG - 
+Processing item: Update the README to include setup instructions for new developers. (Alice)
+2025-06-30 22:34:48,833 - DEBUG - Creating new todo: Update the README to include setup instructions for new developers. (Alice)
+2025-06-30 22:34:48,847 - DEBUG - Starting new HTTPS connection (1): api.github.com:443
+2025-06-30 22:34:50,322 - DEBUG - https://api.github.com:443 "POST /repos/wintervalet07/flask_todo_app/issues HTTP/1.1" 404 None
+2025-06-30 22:34:50,325 - ERROR - Failed to create GitHub issue: Update the README to include setup instructions for new developers. (Alice) | Status: 404 | Response: {"message":"Not Found","documentation_url":"https://docs.github.com/rest/issues/issues#create-an-issue","status":"404"}
+2025-06-30 22:34:50,329 - DEBUG - 
+Processing item: Schedule a follow-up meeting with the design team. (Carol)
+2025-06-30 22:34:50,338 - DEBUG - Creating new todo: Schedule a follow-up meeting with the design team. (Carol)
+2025-06-30 22:34:50,345 - DEBUG - Starting new HTTPS connection (1): api.github.com:443
+2025-06-30 22:34:51,777 - DEBUG - https://api.github.com:443 "POST /repos/wintervalet07/flask_todo_app/issues HTTP/1.1" 404 None
+2025-06-30 22:34:51,780 - ERROR - Failed to create GitHub issue: Schedule a follow-up meeting with the design team. (Carol) | Status: 404 | Response: {"message":"Not Found","documentation_url":"https://docs.github.com/rest/issues/issues#create-an-issue","status":"404"}
+2025-06-30 22:34:51,785 - DEBUG - 
+Committing 2 new todos to database
+2025-06-30 22:34:51,811 - DEBUG - 
+Sending response: {'message': 'Successfully extracted 2 new action items', 'action_items': [{'id': 1, 'task': 'Update the README to include setup instructions for new developers. (Alice)', 'done': False, 'status': 'todo', 'assignee': None, 'notes': None, 'created_at': '2025-06-30T17:04:50.334438', 'updated_at': '2025-06-30T17:04:50.334460'}, {'id': 2, 'task': 'Schedule a follow-up meeting with the design team. (Carol)', 'done': False, 'status': 'todo', 'assignee': None, 'notes': None, 'created_at': '2025-06-30T17:04:51.787711', 'updated_at': '2025-06-30T17:04:51.787734'}], 'github_results': [{'item': 'Update the README to include setup instructions for new developers. (Alice)', 'success': False, 'result': '{"message":"Not Found","documentation_url":"https://docs.github.com/rest/issues/issues#create-an-issue","status":"404"}'}, {'item': 'Schedule a follow-up meeting with the design team. (Carol)', 'success': False, 'result': '{"message":"Not Found","documentation_url":"https://docs.github.com/rest/issues/issues#create-an-issue","status":"404"}'}], 'debug_info': {'total_items_found': 2, 'items_created': 2, 'items_skipped': 0}}
+2025-06-30 22:34:51,814 - INFO - 127.0.0.1 - - [30/Jun/2025 22:34:51] "[35m[1mPOST /extract-todos HTTP/1.1[0m" 201 -
+2025-06-30 22:34:51,829 - INFO - 127.0.0.1 - - [30/Jun/2025 22:34:51] "GET /todos HTTP/1.1" 200 -
+2025-06-30 22:34:53,864 - INFO - 127.0.0.1 - - [30/Jun/2025 22:34:53] "GET / HTTP/1.1" 200 -
+2025-06-30 22:46:39,604 - INFO - Database initialized
+2025-06-30 22:46:39,646 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-06-30 22:46:39,647 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 22:46:39,653 - INFO -  * Restarting with stat
+2025-06-30 22:46:41,168 - INFO - Database initialized
+2025-06-30 22:46:41,197 - WARNING -  * Debugger is active!
+2025-06-30 22:46:41,201 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 22:47:06,952 - INFO - Database initialized
+2025-06-30 22:47:06,994 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-06-30 22:47:06,995 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 22:47:06,998 - INFO -  * Restarting with stat
+2025-06-30 22:47:08,509 - INFO - Database initialized
+2025-06-30 22:47:08,543 - WARNING -  * Debugger is active!
+2025-06-30 22:47:08,549 - INFO -  * Debugger PIN: 333-216-039
+2025-06-30 22:49:50,610 - INFO - Database initialized
+2025-06-30 22:49:50,665 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-06-30 22:49:50,666 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 22:49:50,671 - INFO -  * Restarting with stat
+2025-06-30 22:49:52,487 - INFO - Database initialized
+2025-06-30 22:49:52,515 - WARNING -  * Debugger is active!
+2025-06-30 22:49:52,519 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 22:50:14,158 - INFO - 127.0.0.1 - - [30/Jun/2025 22:50:14] "GET /test HTTP/1.1" 200 -
+2025-06-30 22:50:14,677 - INFO - 127.0.0.1 - - [30/Jun/2025 22:50:14] "GET /test HTTP/1.1" 200 -
+2025-06-30 22:51:29,794 - INFO - 127.0.0.1 - - [30/Jun/2025 22:51:29] "GET / HTTP/1.1" 200 -
+2025-06-30 22:51:29,916 - INFO - 127.0.0.1 - - [30/Jun/2025 22:51:29] "GET / HTTP/1.1" 200 -
+2025-06-30 22:51:30,104 - INFO - 127.0.0.1 - - [30/Jun/2025 22:51:30] "GET / HTTP/1.1" 200 -
+2025-06-30 22:51:30,277 - INFO - 127.0.0.1 - - [30/Jun/2025 22:51:30] "GET / HTTP/1.1" 200 -
+2025-06-30 22:51:30,475 - INFO - 127.0.0.1 - - [30/Jun/2025 22:51:30] "GET / HTTP/1.1" 200 -
+2025-06-30 22:51:30,695 - INFO - 127.0.0.1 - - [30/Jun/2025 22:51:30] "GET / HTTP/1.1" 200 -
+2025-06-30 22:51:34,490 - DEBUG - 
+=== Extract Todos Endpoint Called ===
+2025-06-30 22:51:34,491 - DEBUG - 
+Calling extract_action_items...
+2025-06-30 22:51:34,493 - ERROR - Error in AI extraction: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+2025-06-30 22:51:34,494 - DEBUG - 
+Extracted 2 action items:
+2025-06-30 22:51:34,496 - DEBUG - 1. Update the README to include setup instructions for new developers.
+2025-06-30 22:51:34,497 - DEBUG - 2. Schedule a follow-up meeting with the design team.
+2025-06-30 22:51:34,498 - DEBUG - 
+Processing item: Update the README to include setup instructions for new developers.
+2025-06-30 22:51:34,514 - DEBUG - Creating new todo: Update the README to include setup instructions for new developers.
+2025-06-30 22:51:34,560 - DEBUG - Starting new HTTPS connection (1): api.github.com:443
+2025-06-30 22:51:36,003 - DEBUG - https://api.github.com:443 "POST /repos/wintervalet07/flask_todo_app/issues HTTP/1.1" 404 None
+2025-06-30 22:51:36,005 - ERROR - Failed to create GitHub issue: Update the README to include setup instructions for new developers. | Status: 404 | Response: {"message":"Not Found","documentation_url":"https://docs.github.com/rest/issues/issues#create-an-issue","status":"404"}
+2025-06-30 22:51:36,009 - DEBUG - 
+Processing item: Schedule a follow-up meeting with the design team.
+2025-06-30 22:51:36,021 - DEBUG - Creating new todo: Schedule a follow-up meeting with the design team.
+2025-06-30 22:51:36,026 - DEBUG - Starting new HTTPS connection (1): api.github.com:443
+2025-06-30 22:51:41,107 - DEBUG - https://api.github.com:443 "POST /repos/wintervalet07/flask_todo_app/issues HTTP/1.1" 404 None
+2025-06-30 22:51:41,108 - ERROR - Failed to create GitHub issue: Schedule a follow-up meeting with the design team. | Status: 404 | Response: {"message":"Not Found","documentation_url":"https://docs.github.com/rest/issues/issues#create-an-issue","status":"404"}
+2025-06-30 22:51:41,112 - DEBUG - 
+Committing 2 new todos to database
+2025-06-30 22:51:41,142 - DEBUG - 
+Sending response: {'message': 'Successfully extracted 2 new action items', 'action_items': [{'id': 3, 'task': 'Update the README to include setup instructions for new developers.', 'done': False, 'status': 'todo', 'assignee': None, 'notes': None, 'created_at': '2025-06-30T17:21:36.016049', 'updated_at': '2025-06-30T17:21:36.016071'}, {'id': 4, 'task': 'Schedule a follow-up meeting with the design team.', 'done': False, 'status': 'todo', 'assignee': None, 'notes': None, 'created_at': '2025-06-30T17:21:41.114238', 'updated_at': '2025-06-30T17:21:41.114255'}], 'github_results': [{'item': 'Update the README to include setup instructions for new developers.', 'success': False, 'result': '{"message":"Not Found","documentation_url":"https://docs.github.com/rest/issues/issues#create-an-issue","status":"404"}'}, {'item': 'Schedule a follow-up meeting with the design team.', 'success': False, 'result': '{"message":"Not Found","documentation_url":"https://docs.github.com/rest/issues/issues#create-an-issue","status":"404"}'}], 'debug_info': {'total_items_found': 2, 'items_created': 2, 'items_skipped': 0}}
+2025-06-30 22:51:41,145 - INFO - 127.0.0.1 - - [30/Jun/2025 22:51:41] "[35m[1mPOST /extract-todos HTTP/1.1[0m" 201 -
+2025-06-30 22:51:41,161 - INFO - 127.0.0.1 - - [30/Jun/2025 22:51:41] "GET /todos HTTP/1.1" 200 -
+2025-06-30 22:51:43,211 - INFO - 127.0.0.1 - - [30/Jun/2025 22:51:43] "GET / HTTP/1.1" 200 -
+2025-06-30 23:17:52,474 - INFO - Database initialized
+2025-06-30 23:17:52,586 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-06-30 23:17:52,587 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 23:17:52,589 - INFO -  * Restarting with stat
+2025-06-30 23:17:54,039 - INFO - Database initialized
+2025-06-30 23:17:54,068 - WARNING -  * Debugger is active!
+2025-06-30 23:17:54,072 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 23:25:28,042 - INFO - Database initialized
+2025-06-30 23:25:28,092 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.102:5000
+2025-06-30 23:25:28,093 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-30 23:25:28,096 - INFO -  * Restarting with stat
+2025-06-30 23:25:29,647 - INFO - Database initialized
+2025-06-30 23:25:29,674 - WARNING -  * Debugger is active!
+2025-06-30 23:25:29,682 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 23:45:37,798 - INFO - 127.0.0.1 - - [30/Jun/2025 23:45:37] "[32mPOST /delete/1 HTTP/1.1[0m" 302 -
+2025-06-30 23:45:37,821 - INFO - 127.0.0.1 - - [30/Jun/2025 23:45:37] "GET / HTTP/1.1" 200 -
+2025-06-30 23:45:45,232 - INFO - 127.0.0.1 - - [30/Jun/2025 23:45:45] "[32mPOST /delete/2 HTTP/1.1[0m" 302 -
+2025-06-30 23:45:45,245 - INFO - 127.0.0.1 - - [30/Jun/2025 23:45:45] "GET / HTTP/1.1" 200 -
+2025-06-30 23:45:46,062 - INFO - 127.0.0.1 - - [30/Jun/2025 23:45:46] "[32mPOST /delete/3 HTTP/1.1[0m" 302 -
+2025-06-30 23:45:46,075 - INFO - 127.0.0.1 - - [30/Jun/2025 23:45:46] "GET / HTTP/1.1" 200 -
+2025-06-30 23:45:47,033 - INFO - 127.0.0.1 - - [30/Jun/2025 23:45:47] "[32mPOST /delete/4 HTTP/1.1[0m" 302 -
+2025-06-30 23:45:47,044 - INFO - 127.0.0.1 - - [30/Jun/2025 23:45:47] "GET / HTTP/1.1" 200 -
+2025-06-30 23:54:26,148 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 23:54:26,148 - INFO -  * Detected change in 'C:\\Users\\sowja\\Documents\\To do\\todo.py', reloading
+2025-06-30 23:54:26,491 - INFO -  * Restarting with stat
+2025-06-30 23:54:26,664 - INFO -  * Restarting with stat
+2025-06-30 23:54:29,853 - INFO - Database initialized
+2025-06-30 23:54:29,853 - INFO - Database initialized
+2025-06-30 23:54:29,902 - WARNING -  * Debugger is active!
+2025-06-30 23:54:29,902 - WARNING -  * Debugger is active!
+2025-06-30 23:54:29,926 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 23:54:29,927 - INFO -  * Debugger PIN: 590-113-304
+2025-06-30 23:54:58,830 - DEBUG - 
+=== Extract Todos Endpoint Called ===
+2025-06-30 23:54:58,831 - DEBUG - 
+Calling extract_action_items...
+2025-06-30 23:54:58,831 - ERROR - Error in AI extraction: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable
+2025-06-30 23:54:58,832 - DEBUG - 
+Extracted 2 action items:
+2025-06-30 23:54:58,832 - DEBUG - 1. Update the README to include setup instructions for new developers.
+2025-06-30 23:54:58,832 - DEBUG - 2. Schedule a follow-up meeting with the design team.
+2025-06-30 23:54:58,833 - DEBUG - 
+Processing item: Update the README to include setup instructions for new developers.
+2025-06-30 23:54:58,842 - DEBUG - Creating new todo: Update the README to include setup instructions for new developers.
+2025-06-30 23:54:58,847 - DEBUG - Starting new HTTPS connection (1): api.github.com:443
+2025-06-30 23:54:59,896 - DEBUG - https://api.github.com:443 "POST /repos/winterviolet07/flask_todo_app/issues HTTP/1.1" 201 2335
+2025-06-30 23:54:59,897 - INFO - Created GitHub issue: Update the README to include setup instructions for new developers.
+2025-06-30 23:54:59,900 - DEBUG - 
+Processing item: Schedule a follow-up meeting with the design team.
+2025-06-30 23:54:59,908 - DEBUG - Creating new todo: Schedule a follow-up meeting with the design team.
+2025-06-30 23:54:59,912 - DEBUG - Starting new HTTPS connection (1): api.github.com:443
+2025-06-30 23:55:01,121 - DEBUG - https://api.github.com:443 "POST /repos/winterviolet07/flask_todo_app/issues HTTP/1.1" 201 2318
+2025-06-30 23:55:01,122 - INFO - Created GitHub issue: Schedule a follow-up meeting with the design team.
+2025-06-30 23:55:01,125 - DEBUG - 
+Committing 2 new todos to database
+2025-06-30 23:55:01,146 - DEBUG - 
+Sending response: {'message': 'Successfully extracted 2 new action items', 'action_items': [{'id': 1, 'task': 'Update the README to include setup instructions for new developers.', 'done': False, 'status': 'todo', 'assignee': None, 'notes': None, 'created_at': '2025-06-30T18:24:59.903698', 'updated_at': '2025-06-30T18:24:59.903714'}, {'id': 2, 'task': 'Schedule a follow-up meeting with the design team.', 'done': False, 'status': 'todo', 'assignee': None, 'notes': None, 'created_at': '2025-06-30T18:25:01.127095', 'updated_at': '2025-06-30T18:25:01.127109'}], 'github_results': [{'item': 'Update the README to include setup instructions for new developers.', 'success': True, 'result': {'url': 'https://api.github.com/repos/winterviolet07/flask_todo_app/issues/2', 'repository_url': 'https://api.github.com/repos/winterviolet07/flask_todo_app', 'labels_url': 'https://api.github.com/repos/winterviolet07/flask_todo_app/issues/2/labels{/name}', 'comments_url': 'https://api.github.com/repos/winterviolet07/flask_todo_app/issues/2/comments', 'events_url': 'https://api.github.com/repos/winterviolet07/flask_todo_app/issues/2/events', 'html_url': 'https://github.com/winterviolet07/flask_todo_app/issues/2', 'id': 3189454765, 'node_id': 'I_kwDOOp-nPc6-Gzet', 'number': 2, 'title': 'Update the README to include setup instructions for new developers.', 'user': {'login': 'winterviolet07', 'id': 207338795, 'node_id': 'U_kgDODFu9Kw', 'avatar_url': 'https://avatars.githubusercontent.com/u/207338795?v=4', 'gravatar_id': '', 'url': 'https://api.github.com/users/winterviolet07', 'html_url': 'https://github.com/winterviolet07', 'followers_url': 'https://api.github.com/users/winterviolet07/followers', 'following_url': 'https://api.github.com/users/winterviolet07/following{/other_user}', 'gists_url': 'https://api.github.com/users/winterviolet07/gists{/gist_id}', 'starred_url': 'https://api.github.com/users/winterviolet07/starred{/owner}{/repo}', 'subscriptions_url': 'https://api.github.com/users/winterviolet07/subscriptions', 'organizations_url': 'https://api.github.com/users/winterviolet07/orgs', 'repos_url': 'https://api.github.com/users/winterviolet07/repos', 'events_url': 'https://api.github.com/users/winterviolet07/events{/privacy}', 'received_events_url': 'https://api.github.com/users/winterviolet07/received_events', 'type': 'User', 'user_view_type': 'public', 'site_admin': False}, 'labels': [], 'state': 'open', 'locked': False, 'assignee': None, 'assignees': [], 'milestone': None, 'comments': 0, 'created_at': '2025-06-30T18:24:59Z', 'updated_at': '2025-06-30T18:24:59Z', 'closed_at': None, 'author_association': 'OWNER', 'active_lock_reason': None, 'sub_issues_summary': {'total': 0, 'completed': 0, 'percent_completed': 0}, 'body': None, 'closed_by': None, 'reactions': {'url': 'https://api.github.com/repos/winterviolet07/flask_todo_app/issues/2/reactions', 'total_count': 0, '+1': 0, '-1': 0, 'laugh': 0, 'hooray': 0, 'confused': 0, 'heart': 0, 'rocket': 0, 'eyes': 0}, 'timeline_url': 'https://api.github.com/repos/winterviolet07/flask_todo_app/issues/2/timeline', 'performed_via_github_app': None, 'state_reason': None}}, {'item': 'Schedule a follow-up meeting with the design team.', 'success': True, 'result': {'url': 'https://api.github.com/repos/winterviolet07/flask_todo_app/issues/3', 'repository_url': 'https://api.github.com/repos/winterviolet07/flask_todo_app', 'labels_url': 'https://api.github.com/repos/winterviolet07/flask_todo_app/issues/3/labels{/name}', 'comments_url': 'https://api.github.com/repos/winterviolet07/flask_todo_app/issues/3/comments', 'events_url': 'https://api.github.com/repos/winterviolet07/flask_todo_app/issues/3/events', 'html_url': 'https://github.com/winterviolet07/flask_todo_app/issues/3', 'id': 3189454815, 'node_id': 'I_kwDOOp-nPc6-Gzff', 'number': 3, 'title': 'Schedule a follow-up meeting with the design team.', 'user': {'login': 'winterviolet07', 'id': 207338795, 'node_id': 'U_kgDODFu9Kw', 'avatar_url': 'https://avatars.githubusercontent.com/u/207338795?v=4', 'gravatar_id': '', 'url': 'https://api.github.com/users/winterviolet07', 'html_url': 'https://github.com/winterviolet07', 'followers_url': 'https://api.github.com/users/winterviolet07/followers', 'following_url': 'https://api.github.com/users/winterviolet07/following{/other_user}', 'gists_url': 'https://api.github.com/users/winterviolet07/gists{/gist_id}', 'starred_url': 'https://api.github.com/users/winterviolet07/starred{/owner}{/repo}', 'subscriptions_url': 'https://api.github.com/users/winterviolet07/subscriptions', 'organizations_url': 'https://api.github.com/users/winterviolet07/orgs', 'repos_url': 'https://api.github.com/users/winterviolet07/repos', 'events_url': 'https://api.github.com/users/winterviolet07/events{/privacy}', 'received_events_url': 'https://api.github.com/users/winterviolet07/received_events', 'type': 'User', 'user_view_type': 'public', 'site_admin': False}, 'labels': [], 'state': 'open', 'locked': False, 'assignee': None, 'assignees': [], 'milestone': None, 'comments': 0, 'created_at': '2025-06-30T18:25:00Z', 'updated_at': '2025-06-30T18:25:00Z', 'closed_at': None, 'author_association': 'OWNER', 'active_lock_reason': None, 'sub_issues_summary': {'total': 0, 'completed': 0, 'percent_completed': 0}, 'body': None, 'closed_by': None, 'reactions': {'url': 'https://api.github.com/repos/winterviolet07/flask_todo_app/issues/3/reactions', 'total_count': 0, '+1': 0, '-1': 0, 'laugh': 0, 'hooray': 0, 'confused': 0, 'heart': 0, 'rocket': 0, 'eyes': 0}, 'timeline_url': 'https://api.github.com/repos/winterviolet07/flask_todo_app/issues/3/timeline', 'performed_via_github_app': None, 'state_reason': None}}], 'debug_info': {'total_items_found': 2, 'items_created': 2, 'items_skipped': 0}}
+2025-06-30 23:55:01,150 - INFO - 127.0.0.1 - - [30/Jun/2025 23:55:01] "[35m[1mPOST /extract-todos HTTP/1.1[0m" 201 -
+2025-06-30 23:55:01,160 - INFO - 127.0.0.1 - - [30/Jun/2025 23:55:01] "GET /todos HTTP/1.1" 200 -
+2025-06-30 23:55:03,276 - INFO - 127.0.0.1 - - [30/Jun/2025 23:55:03] "GET / HTTP/1.1" 200 -

@@ -7,6 +7,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional, List
 import openai
 from dotenv import load_dotenv
+import requests
 
 # Load environment variables
 load_dotenv()
@@ -69,6 +70,38 @@ def init_db():
 
 # Initialize the database
 init_db()
+
+# Load GitHub credentials
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+GITHUB_REPO = os.getenv('GITHUB_REPO')
+
+print("GITHUB_TOKEN:", GITHUB_TOKEN)
+print("GITHUB_REPO:", GITHUB_REPO)
+
+def create_github_issue(title, body=None):
+    """Create a GitHub issue in the configured repository."""
+    if not GITHUB_TOKEN or not GITHUB_REPO:
+        logger.error("GitHub token or repo not set in environment variables.")
+        return False, 'Missing GitHub credentials'
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/issues"
+    headers = {
+        "Authorization": f"Bearer {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github+json"
+    }
+    data = {"title": title}
+    if body:
+        data["body"] = body
+    try:
+        response = requests.post(url, json=data, headers=headers)
+        if response.status_code == 201:
+            logger.info(f"Created GitHub issue: {title}")
+            return True, response.json()
+        else:
+            logger.error(f"Failed to create GitHub issue: {title} | Status: {response.status_code} | Response: {response.text}")
+            return False, response.text
+    except Exception as e:
+        logger.error(f"Exception while creating GitHub issue: {title} | Error: {str(e)}")
+        return False, str(e)
 
 @app.route('/', methods=['GET', 'POST'])
 def index() -> Any:
@@ -151,6 +184,18 @@ def add_todo() -> Any:
         logger.error(f"Error creating todo via API: {str(e)}")
         db.session.rollback()
         return jsonify({'error': 'Failed to create todo'}), 500
+
+@app.route('/export', methods=['GET'])
+def export_todos_as_json():
+    """Export all todos as a downloadable JSON file."""
+    try:
+        todos = Todo.query.all()
+        todo_dicts = [todo.to_dict() for todo in todos]
+        return jsonify(todo_dicts), 200
+    except Exception as e:
+        logger.error(f"Error exporting todos: {str(e)}")
+        return jsonify({'error': 'Failed to export todos'}), 500
+
 
 @app.route('/todos/<int:todo_id>', methods=['PUT'])
 def update_todo(todo_id: int) -> Any:
@@ -374,41 +419,41 @@ def extract_todos() -> Any:
     
     try:
         # Extract action items using AI
+        logger.debug("\nCalling extract_action_items...")
         action_items = extract_action_items_with_ai(text)
-        logger.debug(f"\nExtracted {len(action_items)} action items:")
+        logger.debug("\nExtracted %d action items:", len(action_items))
         for i, item in enumerate(action_items, 1):
-            logger.debug(f"{i}. {item}")
+            logger.debug("%d. %s", i, item)
         
         # Add each action item to the todo list
         created_todos = []
+        github_results = []
         for item in action_items:
-            # Skip if todo already exists
+            logger.debug("\nProcessing item: %s", item)
             existing_todo = Todo.query.filter_by(task=item).first()
             if existing_todo:
-                logger.debug(f"Item already exists: {item}")
+                logger.debug("Item already exists: %s", item)
                 continue
-                
-            # Create new todo
-            logger.debug(f"Creating new todo: {item}")
+            logger.debug("Creating new todo: %s", item)
             todo = Todo(task=item)
             db.session.add(todo)
             created_todos.append(todo)
-        
-        # Commit new todos
+            # Create GitHub issue for each new action item
+            success, result = create_github_issue(item)
+            github_results.append({"item": item, "success": success, "result": result})
+        logger.debug("\nCommitting %d new todos to database", len(created_todos))
         db.session.commit()
-        
-        # Prepare response
         response = {
             'message': f'Successfully extracted {len(created_todos)} new action items',
             'action_items': [todo.to_dict() for todo in created_todos],
+            'github_results': github_results,
             'debug_info': {
                 'total_items_found': len(action_items),
                 'items_created': len(created_todos),
-                'items_skipped': len(action_items) - len(created_todos),
-                'extraction_method': 'ai' if openai.api_key else 'basic'
+                'items_skipped': len(action_items) - len(created_todos)
             }
         }
-        
+        logger.debug("\nSending response: %s", response)
         return jsonify(response), 201
     except Exception as e:
         logger.error(f"Error during extraction: {str(e)}")
